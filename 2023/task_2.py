@@ -1,7 +1,7 @@
 import re
-import time
 from functools import reduce
 from read_lines import read_lines
+from mesaure_time import run_with_measurment
 
 def get_color_number_pairs(line: str) -> tuple[str, str]:
     line.strip("\n")
@@ -44,20 +44,6 @@ def part_two(lines: list[str]):
         game_nr_sum += multiply_result
     return game_nr_sum
 
-start_time = time.time()
-lines = read_lines(task_number=2)
-end_time = time.time()
-elapsed_time = (end_time - start_time) * 1000
-print("Read file, process took: ", elapsed_time, "milliseconds")
-
-start_time = time.time()
-result = part_one(lines)
-end_time = time.time()
-elapsed_time = (end_time - start_time) * 1000
-print("Day 2 Part 1:", result, "Process took: ", elapsed_time, "milliseconds")
-
-start_time = time.time()
-result = part_two(lines)
-end_time = time.time()
-elapsed_time = (end_time - start_time) * 1000
-print("Day 2 Part 2:", result, "Process took: ", elapsed_time, "milliseconds")
+lines = run_with_measurment(read_lines, task_number=2)
+result = run_with_measurment(part_one, print_result=True, lines=lines)
+result = run_with_measurment(part_two, print_result=True, lines=lines)
