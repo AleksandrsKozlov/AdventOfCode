@@ -34,7 +34,7 @@ def get_last_digit(line: str):
     max_parsed = str(digit_map.get(max_digit, max_digit))
     return max_parsed
 
-with open("inputs/task_1.txt") as f:
+with open("2023/inputs/task1.txt") as f:
     lines = f.readlines()
     sum = 0
     for line in lines:
