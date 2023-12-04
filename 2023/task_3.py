@@ -1,6 +1,6 @@
 import re
 from read_lines import read_lines
-from mesaure_time import run_with_measurment
+from measure_time import run_with_measurment
 
 def get_line_numbers(line: str):
     return [

@@ -1,5 +1,5 @@
 from read_lines import read_lines
-from mesaure_time import run_with_measurment
+from measure_time import run_with_measurment
 from functools import reduce
 
 def remove_empty_values(imput_list: list[str]):
