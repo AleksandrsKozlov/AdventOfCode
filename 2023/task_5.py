@@ -1,5 +1,6 @@
 from read_lines import read_lines
-from measure_time import run_with_measurment
+from statistics import median
+import timeit
 
 def remove_empty_values(input_list: list[str]):
     return [x for x in input_list if x]
@@ -72,7 +73,11 @@ def part_two(lines: list[str]):
     seeds, seed_maps = parse_input(lines=lines, part_nr=2)
     return grow_seeds(seeds, seed_maps)
 
+def main():
+    lines = read_lines(task_number=5)
+    part_one(lines)
+    part_two(lines)
+
 if __name__ == '__main__':
-    lines = run_with_measurment(read_lines, task_number=5)
-    result = run_with_measurment(part_one, print_result=True, lines=lines)
-    result = run_with_measurment(part_two, print_result=True, lines=lines)
+    median_time = median(timeit.repeat(stmt=main, repeat=1000, number=1,)) * 1000
+    print(f"Median time for 1000 runs: {median_time} ms")
