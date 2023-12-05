@@ -2,8 +2,8 @@ from read_lines import read_lines
 from measure_time import run_with_measurment
 from functools import reduce
 
-def remove_empty_values(imput_list: list[str]):
-    return [x for x in imput_list if x]
+def remove_empty_values(input_list: list[str]):
+    return [x for x in input_list if x]
 
 def get_winning_numbers_legth(line: str):
     numbers = line.strip("\n").split(":")[1].split("|")
