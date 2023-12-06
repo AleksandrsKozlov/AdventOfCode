@@ -26,5 +26,5 @@ def part_two(time_distance_pair: tuple[int, int]):
 
 if __name__ == '__main__':
     first_input, second_input = run_with_measurment(get_inputs)
-    run_with_measurment(part_one, print_result=True, time_distance_pairs=first_input)
-    run_with_measurment(part_two, print_result=True, time_distance_pair=second_input)
+    run_with_measurment(part_one, time_distance_pairs=first_input, use_nanoseconds=True, print_result=True)
+    run_with_measurment(part_two, time_distance_pair=second_input, use_nanoseconds=True, print_result=True)
