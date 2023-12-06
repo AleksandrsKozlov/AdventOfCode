@@ -17,7 +17,7 @@ def get_inputs():
 
 
 def part_one(time_distance_pairs: list[tuple[int, int]]):
-    return math.prod([calculate_valid_attempts(time, distance) for (time, distance) in time_distance_pairs])
+    return math.prod(calculate_valid_attempts(time, distance) for (time, distance) in time_distance_pairs)
 
 
 def part_two(time_distance_pair: tuple[int, int]):
