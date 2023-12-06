@@ -2,8 +2,9 @@ import math
 from measure_time import run_with_measurment
 
 def calculate_valid_attempts(time: int, distance: int):
-    x1 = (-time + math.sqrt((time*time) - 4*distance))/2
-    x2 = (-time - math.sqrt((time*time) - 4*distance))/2
+    discriminant = math.sqrt((time*time) - 4*distance)
+    x1 = (-time + discriminant)/2
+    x2 = (-time - discriminant)/2
     return abs(math.ceil(x2) - math.ceil(x1))
 
 
