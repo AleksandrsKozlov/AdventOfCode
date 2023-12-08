@@ -1,6 +1,7 @@
 from measure_time import run_with_measurment
 import math
 from multiprocessing import Pool
+from itertools import cycle
 
 def get_input():
     lines = open("2023/inputs/task8.txt").read().split("\n")
@@ -32,6 +33,16 @@ def go_path(path: list[int], path_map: dict[str, tuple[str, str]], start_node: s
             idx = 0
     return steps
 
+def move(path: list[int], path_map: dict[str, tuple[str, str]], start_node: str):
+    for direction in cycle(path):
+        start_node = path_map[start_node][direction]
+        yield start_node
+
+def count_steps(path: list[int], path_map: dict[str, tuple[str, str]], start_node: str):
+    for step, node in enumerate(move(path, path_map, start_node)):
+        if node.endswith("Z"):
+            return step + 1
+
 def part_one(path: list[int], path_map: dict[str, tuple[str, str]]):
     start_node = "AAA"
     end_condition = lambda node: node == "ZZZ"
@@ -41,6 +52,10 @@ def part_one(path: list[int], path_map: dict[str, tuple[str, str]]):
 def part_two(path: list[int], path_map: dict[str, tuple[str, str]], start_nodes: list[str]):
     end_condition = lambda node: node[-1] == "Z"
     all_steps = [go_path(path, path_map, start_node, end_condition) for start_node in start_nodes]
+    return math.lcm(*all_steps)
+
+def part_two_with_generators(path: list[int], path_map: dict[str, tuple[str, str]], start_nodes: list[str]):
+    all_steps = [count_steps(path, path_map, start_node) for start_node in start_nodes]
     return math.lcm(*all_steps)
 
 def part_two_parallel(path: list[int], path_map: dict[str, tuple[str, str]], start_nodes: list[str]):
@@ -55,4 +70,5 @@ if __name__ == '__main__':
     path, path_map, start_nodes = run_with_measurment(get_input)
     run_with_measurment(part_one, print_result=True, path=path, path_map=path_map)
     run_with_measurment(part_two, print_result=True, path=path, path_map=path_map, start_nodes=start_nodes)
+    run_with_measurment(part_two_with_generators, print_result=True, path=path, path_map=path_map, start_nodes=start_nodes)
     run_with_measurment(part_two_parallel, print_result=True, path=path, path_map=path_map, start_nodes=start_nodes)
