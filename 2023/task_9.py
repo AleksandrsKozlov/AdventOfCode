@@ -1,7 +1,4 @@
 from measure_time import run_with_measurment
-import math
-from multiprocessing import Pool
-from itertools import cycle
 import numpy as np
 
 def get_input():
