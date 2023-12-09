@@ -9,7 +9,7 @@ def part_one(lines: list[list[int]]):
     result = 0
     for line in lines:
         result += line[-1]
-        while sum(line) != 0:
+        while any(line):
             line = np.diff(line)
             result += line[-1]
     return result
@@ -19,7 +19,7 @@ def part_two(lines: list[list[int]]):
     for line in lines:
         result += line[0]
         i = 0
-        while len(set(line)) != 1:
+        while any(line):
             line = np.diff(line)
             result -= line[0] if i%2 == 0 else -line[0]
             i += 1
@@ -30,7 +30,7 @@ def part_two_reverse(lines: list[list[int]]):
     for line in lines:
         line.reverse()
         result += line[-1]
-        while len(set(line)) != 1:
+        while any(line):
             line = np.diff(line)
             result += line[-1]
     return result
@@ -42,7 +42,7 @@ def both_parts(lines: list[list[int]]):
         part_1_result += line[-1]
         part_2_result += line[0]
         i = 0
-        while len(set(line)) != 1:
+        while any(line):
             line = np.diff(line)
             part_1_result += line[-1]
             part_2_result -= line[0] if i%2 == 0 else -line[0]
