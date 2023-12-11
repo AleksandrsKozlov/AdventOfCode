@@ -53,10 +53,34 @@ def part_one(lines: list[str]):
         current = get_next_connection(current, labyrinth)
         steps += 1
     contour_points.append((start[0], start[1]))
-    print(f"Part 1, Steps: {steps//2}")
+    print(f"Part 1, Steps: {steps >> 1}")
     return contour_points, labyrinth
 
-def part_two(contour_points: list[tuple[int,int]], labyrinth: np.ndarray):
+def part_two_ray_casting(contour_points: list[tuple[int,int]], labyrinth: np.ndarray):
+    valid_walls = ["|", "F", "J", "L", "7"]
+    tiles = 0
+    for x, line in enumerate(labyrinth):
+        wall_count = 0
+        candidate_tiles = 0
+        prev_point = None
+        for y, point in enumerate(line):
+            if (x,y) in contour_points:
+                if point in valid_walls:
+                    wall_count += 1
+                    if point == "7" and prev_point == "L":
+                        wall_count -= 1
+                    if point == "J" and prev_point == "F":
+                        wall_count -= 1
+                    prev_point = point
+                if wall_count > 0 and wall_count % 2 == 0:
+                    tiles += candidate_tiles
+                    candidate_tiles = 0
+            if (x,y) not in contour_points and wall_count % 2 != 0:
+                candidate_tiles += 1
+                prev_point = None
+    return tiles
+
+def part_two_polygon(contour_points: list[tuple[int,int]], labyrinth: np.ndarray):
     polygon = Polygon(contour_points)
     tiles = 0
     for x, line in enumerate(labyrinth):
@@ -70,4 +94,5 @@ def part_two(contour_points: list[tuple[int,int]], labyrinth: np.ndarray):
 if __name__ == '__main__':
     lines = run_with_measurment(get_input)
     contour_points, labyrinth = run_with_measurment(part_one, lines=lines)
-    contour_points = run_with_measurment(part_two, contour_points=contour_points, labyrinth=labyrinth, print_result=True)
+    tiles = run_with_measurment(part_two_ray_casting, contour_points=contour_points, labyrinth=labyrinth, print_result=True)
+    tiles = run_with_measurment(part_two_polygon, contour_points=contour_points, labyrinth=labyrinth, print_result=True)
