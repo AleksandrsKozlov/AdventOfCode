@@ -67,7 +67,7 @@ def part_two(stone_field: np.ndarray, cycles: int):
         if cycle_points in all_results:
             cycle_start = all_results.index(cycle_points)
             cycle_length = len(all_results) - cycle_start
-            answer_index = (1000000000 - cycle_start) % cycle_length
+            answer_index = (cycles - cycle_start) % cycle_length
             print(f"Cycle start: {cycle_start}")
             print(f"Cycle length: {cycle_length}")
             return all_results[answer_index + cycle_start - 1][-1]
